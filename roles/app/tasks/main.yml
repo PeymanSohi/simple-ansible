@@ -1,0 +1,31 @@
+---
+- name: Ensure destination directory exists
+  file:
+    path: /var/www/html/
+    state: directory
+    mode: '0755'
+
+- name: Remove existing site files
+  file:
+    path: /var/www/html/
+    state: absent
+
+- name: Create site directory again
+  file:
+    path: /var/www/html/
+    state: directory
+    mode: '0755'
+
+- name: Clone website repository
+  git:
+    repo: 'https://github.com/your-username/your-repo.git'
+    dest: /var/www/html/
+    version: main
+    force: yes
+
+- name: Set permissions
+  file:
+    path: /var/www/html/
+    owner: www-data
+    group: www-data
+    recurse: yes

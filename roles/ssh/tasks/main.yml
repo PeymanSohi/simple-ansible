@@ -1,0 +1,13 @@
+---
+- name: Create .ssh directory
+  file:
+    path: /root/.ssh
+    state: directory
+    mode: '0700'
+
+- name: Upload authorized public key
+  copy:
+    src: files/id_rsa.pub
+    dest: /root/.ssh/authorized_keys
+    owner: root
+    mode: '0600'
